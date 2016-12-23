@@ -1,0 +1,16 @@
+work_record_day {
+	id:32位随机uuid
+	date:日期
+	content:工作内容
+	note:备注
+	createtime:创建时间
+}
+
+work_record_week {
+	id
+	fromDay:
+	toDay:
+	content:
+	note:
+	createtime
+}
