@@ -13,7 +13,7 @@ import com.henushang.job_manager.dao.db.MongoUtil;
 @Repository("jobInfoDao")
 public class JobInfoDaoImpl implements JobInfoDao {
 
-    private static String collName = "birthday_info";
+    private static String collName = "job_info";
 
     public boolean insert(JobInfo t) {
         return MongoUtil.insertOne(collName, t);

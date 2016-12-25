@@ -1,4 +1,4 @@
-package com.henushang.pa.util;
+package com.henushang.job_manager.util;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;

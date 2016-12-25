@@ -7,7 +7,9 @@ import java.util.Map;
 import org.apache.log4j.Logger;
 import org.bson.Document;
 
-import com.henushang.pa.util.JSONUtil;
+import com.henushang.job_manager.dao.db.MongoQuery.SortClass;
+import com.henushang.job_manager.domain.MongoConstant;
+import com.henushang.job_manager.util.JSONUtil;
 import com.mongodb.BasicDBObject;
 import com.mongodb.client.FindIterable;
 import com.mongodb.client.result.DeleteResult;
@@ -44,12 +46,18 @@ public class MongoUtil {
 		return null;
 	}
 	
-	public static <T> List<T> findList(String collName, Map<String, Object> queryMap, Class<T> clazz) {
+	@SuppressWarnings("unchecked")
+    public static <T> List<T> findList(String collName, Map<String, Object> queryMap, Class<T> clazz) {
 		List<T> list = new ArrayList<T>();
 		try {
 			BasicDBObject query = convertMap2BasicDBObject(queryMap);
-			@SuppressWarnings("unchecked")
-			FindIterable<Document> iterable = MongoInit.getColl(collName).find(query);
+			FindIterable<Document> iterable = null;
+			BasicDBObject sortObject = getSortObject(queryMap);
+			if (sortObject == null) {
+			    iterable = MongoInit.getColl(collName).find(query);
+            } else {
+                iterable = MongoInit.getColl(collName).find(query).sort(sortObject);
+            }
 			for (Document document : iterable) {
 				list.add(JSONUtil.fromJson(document.toJson(), clazz));
 			}
@@ -57,6 +65,18 @@ public class MongoUtil {
 			logger.error("findList() occur error! error message:" + e.getMessage(), e);
 		}
 		return list;
+	}
+	
+	private static BasicDBObject getSortObject(Map<String, Object> queryMap) {
+	    BasicDBObject sortObject = null;
+	    for (String key : queryMap.keySet()) {
+            if (MongoConstant.SORT.equals(key)) {
+                SortClass sortClass = (SortClass) queryMap.get(key);
+                sortObject = sortClass.toDBObject();
+                break;
+            }
+        }
+	    return sortObject;
 	}
 	
 	public static boolean delete(String collName, Map<String, Object> queryMap) {
@@ -73,6 +93,9 @@ public class MongoUtil {
 	private static BasicDBObject convertMap2BasicDBObject(Map<String, Object> map) {
 		BasicDBObject dbObject = new BasicDBObject();
 		for (String key : map.keySet()) {
+		    if (MongoConstant.SORT.equals(key)) {
+                continue;
+            }
 			dbObject.put(key, map.get(key));
 		}
 		return dbObject;

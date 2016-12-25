@@ -8,7 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.henushang.job_manager.dao.JobInfoDao;
+import com.henushang.job_manager.dao.db.MongoQuery.SortClass;
 import com.henushang.job_manager.domain.JobInfo;
+import com.henushang.job_manager.domain.MongoConstant;
 import com.henushang.job_manager.service.JobInfoService;
 
 @Service("jobInfoService")
@@ -17,11 +19,12 @@ public class JobInfoServiceImpl implements JobInfoService {
     @Autowired
     private JobInfoDao dao;
 
-
     public List<JobInfo> getList(String userId) {
         Map<String, Object> queryMap = new HashMap<String, Object>();
         queryMap.put("userId", userId);
-        
+        SortClass sortClass = new SortClass();
+        sortClass.addSortKey("priority", SortClass.DESC);
+        queryMap.put(MongoConstant.SORT, sortClass);
         return dao.getListByQueryMap(queryMap);
     }
 

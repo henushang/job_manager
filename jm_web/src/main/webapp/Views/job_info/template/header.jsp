@@ -17,7 +17,7 @@
 	
 <header class="am-topbar admin-header">
 	<div class="am-topbar-brand">
-		<strong>Birth Alert</strong> <small>❤</small>
+		<strong>Job Manager</strong>
 	</div>
 
 	<button

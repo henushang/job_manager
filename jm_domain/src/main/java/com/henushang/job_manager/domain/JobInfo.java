@@ -4,17 +4,23 @@ import com.henushang.job_manager.domain.base.BaseDomain;
 
 import java.util.Date;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 /**
  * Created by baby on 2016/12/24.
  */
 public class JobInfo extends BaseDomain {
 
+    private String userId;
     private String jobName;
+    @DateTimeFormat(pattern="yyyy-MM-dd")   
     private Date startTime;
+    @DateTimeFormat(pattern="yyyy-MM-dd")
     private Date finishTime;
     private int schedule;
     private Date actualFinishTime;
     private String remarks;
+    private int priority;
 
     public String getJobName() {
         return jobName;
@@ -62,5 +68,21 @@ public class JobInfo extends BaseDomain {
 
     public void setRemarks(String remarks) {
         this.remarks = remarks;
+    }
+
+    public int getPriority() {
+        return priority;
+    }
+
+    public void setPriority(int priority) {
+        this.priority = priority;
+    }
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 }

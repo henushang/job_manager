@@ -2,13 +2,29 @@ package com.henushang.job_manager.domain.base;
 
 import java.util.Date;
 
+import org.apache.commons.lang3.StringUtils;
+
+import com.henushang.job_manager.util.UUIDUtil;
+
 /**
  * Created by baby on 2016/12/24.
  */
-public class BaseDomain {
-    protected String _id;
-    protected Date createTime;
-    protected Date updateTime;
+public abstract class BaseDomain {
+    private String _id;
+    private Date createTime;
+    private Date updateTime;
+    
+    public BaseDomain() {
+        if (StringUtils.isEmpty(_id)) {
+            _id = UUIDUtil.getId();
+        }
+        if (updateTime == null) {
+            updateTime = new Date();
+        }
+        if (createTime == null) {
+            createTime = new Date();
+        }
+    }
 
     public Date getUpdateTime() {
         return updateTime;

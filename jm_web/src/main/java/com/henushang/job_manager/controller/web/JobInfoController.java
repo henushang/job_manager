@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.henushang.job_manager.controller.BaseController;
 import com.henushang.job_manager.domain.JobInfo;
 import com.henushang.job_manager.service.JobInfoService;
-import com.henushang.pa.util.UUIDUtil;
 
 @Controller
 @RequestMapping("job_info")
@@ -32,8 +31,9 @@ public class JobInfoController extends BaseController {
     }
     
     @RequestMapping(value = "job_info_list/{user_id}", method = RequestMethod.GET)
-    public String birthList(@PathVariable String user_id, Model model, HttpServletRequest request) {
+    public String jobList(@PathVariable String user_id, Model model, HttpServletRequest request) {
         List<JobInfo> list = service.getList(user_id);
+        System.err.println(list.size());
         model.addAttribute("job_infos", list);
         return PREFIX_JOB_INFO + "job_info_list";
     }
@@ -45,12 +45,11 @@ public class JobInfoController extends BaseController {
     
     
     @ResponseBody
-    @RequestMapping(value = "/add", method = RequestMethod.POST,
-            headers = "Accept=*/*", produces = "application/json")
-    public Map<String, Object> addPost(Model model, JobInfo birthdayInfo, HttpServletRequest request) {
-//        String userId = getCurUserId(request);
-        birthdayInfo.set_id(UUIDUtil.getId());
-        boolean result = service.add(birthdayInfo);
+    @RequestMapping(value = "/add", method = RequestMethod.POST)
+    public Map<String, Object> addPost(Model model, JobInfo jobInfo, HttpServletRequest request) {
+        String userId = getCurUserId(request);
+        jobInfo.setUserId(userId);
+        boolean result = service.add(jobInfo);
         Map<String, Object> map = new HashMap<String, Object>();
         map.put("success", result);
         return map;
