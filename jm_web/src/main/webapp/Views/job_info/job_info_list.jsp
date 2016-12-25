@@ -88,7 +88,7 @@
 	</div>
 	<script type="text/javascript">
 			function del(id) {
-			    $.get("${domain_name}/birth_alert/delete/" + id, function(result){
+			    $.get("${domain_name}/job_info/delete/" + id, function(result){
 			    	window.location.reload();
 			    });
 			}
