@@ -72,4 +72,11 @@ public class JobInfoController extends BaseController {
         request.setAttribute("birth_info", info);
         return PREFIX_JOB_INFO + "edit";
     }
+    
+    @ResponseBody
+    @RequestMapping("/get/{id}")
+    public JobInfo get(@PathVariable String id, HttpServletRequest request) {
+        JobInfo info = service.getOne(id);
+        return info;
+    }
 }

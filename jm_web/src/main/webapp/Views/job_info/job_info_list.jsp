@@ -43,7 +43,7 @@
 		          <thead>
 		          <tr>
 		            <th>序号</th>
-		            <th>任务名</th>
+		            <th>任务名称</th>
 		            <th>开始日期</th>
 		            <th>预期完成日期</th>
 		            <th>当前进度</th>
@@ -71,6 +71,7 @@
 		              <div class="am-dropdown" data-am-dropdown style="z-index:99">
 		                <button class="am-btn am-btn-default am-btn-xs am-dropdown-toggle" data-am-dropdown-toggle><span class="am-icon-cog"></span> <span class="am-icon-caret-down"></span></button>
 		                <ul class="am-dropdown-content">
+		                <li><a href="javascript:;;" class="view_detail" data-id="${item._id }">详情</a></li>
 		                  <li><a href="${domain_name}/birth_alert/edit/${item._id}">编辑</a></li>
 		                  <li><a onclick="del('${item._id }')" href="javascript:;">删除</a></li>
 		                </ul>
@@ -85,13 +86,132 @@
 		</div>
 		<!-- content end -->
 
+        <!-- delete confirm -->
+		<div class="am-modal am-modal-confirm" tabindex="-1" id="delete-confirm">
+		  <div class="am-modal-dialog">
+		    <div class="am-modal-hd">Tasks Master</div>
+		    <div class="am-modal-bd">
+		      你，确定要删除这条记录吗？
+		    </div>
+		    <div class="am-modal-footer">
+		      <span class="am-modal-btn" data-am-modal-cancel>取消</span>
+		      <span class="am-modal-btn" data-am-modal-confirm>确定</span>
+		    </div>
+		  </div>
+		</div>
+		<!-- del result alert -->
+		<button style="display:none;" type="button" class="am-btn am-btn-primary alert_btn" data-am-modal="{target: '#my-alert'}">
+		</button>
+		<div class="am-modal am-modal-alert" tabindex="-1" id="my-alert">
+		  <div class="am-modal-dialog">
+		    <div class="am-modal-hd">Tasks Master</div>
+		    <div class="am-modal-bd result_content">
+		      Hello world！
+		    </div>
+		    <div class="am-modal-footer">
+		      <span class="am-modal-btn del_result_confirm_btn" data-result="false">确定</span>
+		    </div>
+		  </div>
+		</div>
 	</div>
+	<!-- 查看详情 -->
+	<button type="button" style="display:none;" class="am-btn am-btn-primary view_detail_btn"
+	   data-am-modal="{target: '#view_detail_modal', closeViaDimmer: 1, width: 450, height: 320}">
+	</button>
+	
+	<div class="am-modal am-modal-no-btn" tabindex="-1" id="view_detail_modal">
+	  <div class="am-modal-dialog">
+	    <div class="am-modal-hd">查看详情
+	      <a href="javascript: void(0)" class="am-close am-close-spin" data-am-modal-close>&times;</a>
+	    </div>
+	    <div class="am-modal-bd">
+	        <div class="detail_field">任务名称:<span class="d_job_name"></span></div>
+	        <div class="detail_field">开始日期:<span class="d_start_time"></span></div>
+	        <div class="detail_field">预期完成日期:<span class="d_finish_time"></span></div>
+	        <div class="detail_field">当前进度:<span class="d_schedule"></span></div>
+	        <div class="detail_field">优先级:<span class="d_priority"></span></div>
+	        <div class="detail_field">备注:<span class="d_remarks"></span></div>
+	        <div class="detail_field">创建时间:<span class="d_create_time"></span></div>
+	        <div class="detail_field">最后更新时间:<span class="d_update_time"></span></div>
+	    </div>
+	  </div>
+	  <style type="text/css">
+        .detail_field {text-align: left; margin-left:15px;}
+        .d_job_name {padding-left:5px;}
+        .am-modal .am-modal-bd {overflow: auto;}
+      </style>
+	</div>
+
+    	
 	<script type="text/javascript">
-			function del(id) {
-			    $.get("${domain_name}/job_info/delete/" + id, function(result){
-			    	window.location.reload();
-			    });
+	$(function() {
+		$(".del_result_confirm_btn").click(function(){
+			var re = $(this).data("result");
+			if (re == true) {
+				window.location.reload();
 			}
+		});
+		
+		function getDateStr(timestamp) {
+			var newDate = new Date();
+			newDate.setTime(timestamp);
+			var y = newDate.getFullYear();
+			var m = newDate.getMonth()+1;
+			var d = newDate.getDate(); 
+			return y + "-" + m + "-" + d;
+		}
+		
+		function getDateTimeStr(timestamp) {
+            var newDate = new Date();
+            newDate.setTime(timestamp);
+            var y = newDate.getFullYear();
+            var m = newDate.getMonth()+1;
+            var d = newDate.getDate();
+            var h = newDate.getHours();
+            var mm = newDate.getMinutes();
+            var s = newDate.getSeconds();
+            return y + "-" + m + "-" + d + " " + h + ":" + mm + ":" + s;
+        }
+		
+		$(".view_detail").click(function() {
+			job_id = $(this).data("id");
+            $.get("${domain_name}/job_info/get/" + job_id, function(result){
+                if (result != null) {
+                    $(".d_job_name").html(result.jobName);
+                    $(".d_start_time").html(getDateStr(result.startTime));
+                    $(".d_finish_time").html(getDateStr(result.finishTime));
+                    $(".d_schedule").html(result.schedule + "%");
+                    $(".d_priority").html(result.priority);
+                    $(".d_remarks").html(result.remarks);
+                    $(".d_create_time").html(getDateTimeStr(result.createTime));
+                    $(".d_update_time").html(getDateTimeStr(result.updateTime));
+                }
+            });
+			$(".view_detail_btn").click();
+		});
+	});
+	function del(id) {
+		$('#delete-confirm').modal({
+	        relatedTarget: this,
+	        onConfirm: function(options) {
+	           $.get("${domain_name}/job_info/delete/" + id, function(result){
+	        	   if (true == result) {
+	        		   $(".result_content").html("删除成功~");
+	        		   $(".del_result_confirm_btn").data("result", true);
+	        	   } else {
+	        		   $(".result_content").html("删除失败~");
+	        		   $(".del_result_confirm_btn").data("result", false);
+	        	   }
+	        	   $(".alert_btn").click();
+	           });
+	        },
+	        // closeOnConfirm: false,
+	        onCancel: function() {
+	          //alert('算求，不弄了');
+	        }
+	      });
+
+	}
 	</script>
 	<jsp:include page="template/footer.jsp" />
 </body>
