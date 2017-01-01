@@ -13,9 +13,7 @@ public class JobInfo extends BaseDomain {
 
     private String userId;
     private String jobName;
-    @DateTimeFormat(pattern="yyyy-MM-dd")   
     private Date startTime;
-    @DateTimeFormat(pattern="yyyy-MM-dd")
     private Date finishTime;
     private int schedule;
     private Date actualFinishTime;

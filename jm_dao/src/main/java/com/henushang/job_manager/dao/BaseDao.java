@@ -13,4 +13,6 @@ public interface BaseDao<T> {
 	
 	public List<T> getListByQueryMap(Map<String, Object> queryMap);
 	
+	public boolean update(T t);
+	
 }

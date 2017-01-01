@@ -33,7 +33,7 @@
 
 			<div class="am-cf am-padding">
 				<div class="am-fl am-cf">
-					<strong class="am-text-primary am-text-lg">工作任务列表</strong>
+					<strong class="am-text-primary am-text-lg"> 任务列表</strong>
 				</div>
 			</div>
 			
@@ -48,7 +48,7 @@
 		            <th>预期完成日期</th>
 		            <th>当前进度</th>
 		            <th>优先级</th>
-		            <th>管理</th>
+		            <th>操作</th>
 		          </tr>
 		          </thead>
 		          <tbody>
@@ -68,11 +68,11 @@
 	                    </c:choose>
 	                
 		            <td>
-		              <div class="am-dropdown" data-am-dropdown style="z-index:99">
+		              <div class="am-dropdown" data-am-dropdown>
 		                <button class="am-btn am-btn-default am-btn-xs am-dropdown-toggle" data-am-dropdown-toggle><span class="am-icon-cog"></span> <span class="am-icon-caret-down"></span></button>
-		                <ul class="am-dropdown-content">
+		                <ul class="am-dropdown-content" style="min-width:80px;">
 		                <li><a href="javascript:;;" class="view_detail" data-id="${item._id }">详情</a></li>
-		                  <li><a href="${domain_name}/birth_alert/edit/${item._id}">编辑</a></li>
+		                  <li><a href="${domain_name}/job_info/edit/${item._id}">编辑</a></li>
 		                  <li><a onclick="del('${item._id }')" href="javascript:;">删除</a></li>
 		                </ul>
 		              </div>

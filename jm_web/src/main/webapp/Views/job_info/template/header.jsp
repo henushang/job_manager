@@ -9,15 +9,12 @@
 <jsp:include page="../../templ/base.jsp" />
 <link rel="icon" type="image/png" href="${base_static}/amaze-ui/assets/i/favicon.png">
 <link rel="apple-touch-icon-precomposed" href="${base_static}/amaze-ui/assets/i/app-icon72x72@2x.png">
-<%-- <link rel="stylesheet" href="${base_static}/datetimepicker/css/bootstrap.min.css" />
-<link rel="stylesheet" href="${base_static}/datetimepicker/css/bootstrap-datetimepicker.min.css" />
-<link rel="stylesheet" href="${base_static}/datetimepicker/css/bootstrap-responsive.min.css" /> --%>
 <link rel="stylesheet" href="${base_static}/amaze-ui/assets/css/amazeui.min.css" />
 <link rel="stylesheet" href="${base_static}/amaze-ui/assets/css/admin.css">
 	
 <header class="am-topbar admin-header">
 	<div class="am-topbar-brand">
-		<strong>Job Manager</strong>
+		<strong>Tasks Master</strong>
 	</div>
 
 	<button
@@ -36,13 +33,36 @@
 					class="am-icon-caret-down"></span>
 			</a>
 				<ul class="am-dropdown-content">
-					<li><a href="#"><span class="am-icon-user"></span> 资料</a></li>
-					<li><a href="#"><span class="am-icon-cog"></span> 设置</a></li>
-					<li><a href="#"><span class="am-icon-power-off"></span> 退出</a></li>
+					<!-- <li><a href="#"><span class="am-icon-user"></span> 资料</a></li>
+					<li><a href="#"><span class="am-icon-cog"></span> 设置</a></li> -->
+					<li><a href="javascript:;;" class="logout"><span class="am-icon-power-off"></span> 退出</a></li>
 				</ul></li>
 			<li class="am-hide-sm-only"><a href="javascript:;"
 				id="admin-fullscreen"><span class="am-icon-arrows-alt"></span> <span
 					class="admin-fullText">开启全屏</span></a></li>
 		</ul>
 	</div>
+	<!-- del result alert -->
+        <button style="display:none;" type="button" class="am-btn am-btn-primary logout_btn" data-am-modal="{target: '#my-alert'}">
+        </button>
+        <div class="am-modal am-modal-alert" tabindex="-1" id="my-alert">
+          <div class="am-modal-dialog">
+            <div class="am-modal-hd">Tasks Master</div>
+            <div class="am-modal-bd result_content">
+              Hello world！
+            </div>
+            <div class="am-modal-footer">
+              <span class="am-modal-btn del_result_confirm_btn" data-result="false">确定</span>
+            </div>
+          </div>
+        </div>
+        <script>
+	   $(".logout").click(function(){
+           $.post("${domain_name}/user/logout", function(result) {
+                if (result.status == '1') {
+                	window.location = "${domain_name}/user/login"
+                }
+           });
+       });
+	   </script>
 </header>

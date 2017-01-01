@@ -28,7 +28,7 @@
 			<div class="admin-content-body">
 				<div class="am-cf am-padding am-padding-bottom-0">
 					<div class="am-fl am-cf">
-						<strong class="am-text-primary am-text-lg">添加工作</strong> / <small>ADD JOB RECORD</small>
+						<strong class="am-text-primary am-text-lg">添加任务</strong> / <small>ADD TASK RECORD</small>
 					</div>
 				</div>
 				<hr>

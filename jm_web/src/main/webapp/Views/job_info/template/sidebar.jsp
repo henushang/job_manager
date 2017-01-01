@@ -9,7 +9,15 @@
         <li><a href="${domain_name}/job_info/job_info_list/${cur_id}"><span class="am-icon-list"></span> 工作列表</a></li>
         <li><a href="${domain_name}/job_info/add"><span class="am-icon-plus-square-o"></span> 添加记录</a></li>
       </ul>
-
+        
+        <div class="am-panel am-panel-default">
+          <div class="am-panel-hd">公告</div>
+          <div class="am-panel-bd">
+            合理安排时间，就等于节约时间。    --培根
+            <br/><br/>
+            而我的职责，就是帮你合理安排时间！
+          </div>
+        </div>
     </div>
   </div>
   <!-- sidebar end -->

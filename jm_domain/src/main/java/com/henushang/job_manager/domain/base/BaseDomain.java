@@ -3,6 +3,7 @@ package com.henushang.job_manager.domain.base;
 import java.util.Date;
 
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import com.henushang.job_manager.util.UUIDUtil;
 

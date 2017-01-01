@@ -39,4 +39,8 @@ public class JobInfoServiceImpl implements JobInfoService {
     public boolean delete(String id) {
         return dao.delete(id);
     }
+
+    public boolean update(JobInfo t) {
+        return dao.update(t);
+    }
 }

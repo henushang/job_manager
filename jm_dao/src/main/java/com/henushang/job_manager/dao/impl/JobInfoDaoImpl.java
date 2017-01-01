@@ -40,4 +40,10 @@ public class JobInfoDaoImpl implements JobInfoDao {
         return MongoUtil.findList(collName, queryMap, JobInfo.class);
     }
 
+    public boolean update(JobInfo t) {
+        Map<String, Object> whereMap = new HashMap<String, Object>();
+        whereMap.put("_id", t.get_id());
+        return MongoUtil.upsert(collName, whereMap, t);
+    }
+
 }

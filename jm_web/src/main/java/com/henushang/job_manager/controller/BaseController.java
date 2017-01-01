@@ -32,6 +32,12 @@ public abstract class BaseController {
         return true;
     }
     
+    protected boolean removeUserFromSession(HttpServletRequest request) {
+        HttpSession session = request.getSession();
+        session.removeAttribute(Constants.CUR_USER);
+        return true;
+    }
+    
     protected ResponseVO errorVO(String msg) {
         ResponseVO vo = new ResponseVO();
         vo.setStatus(ResponseCode.ERROR);

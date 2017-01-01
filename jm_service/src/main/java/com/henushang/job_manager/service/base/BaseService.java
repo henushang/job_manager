@@ -6,4 +6,6 @@ public interface BaseService<T> {
 	public boolean delete(String id);
 
 	public T getOne(String id);
+	
+	public boolean update(T t);
 }

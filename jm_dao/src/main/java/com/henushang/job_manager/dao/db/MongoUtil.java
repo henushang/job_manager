@@ -1,18 +1,19 @@
 package com.henushang.job_manager.dao.db;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import org.apache.log4j.Logger;
 import org.bson.Document;
-
 import com.henushang.job_manager.dao.db.MongoQuery.SortClass;
 import com.henushang.job_manager.domain.MongoConstant;
 import com.henushang.job_manager.util.JSONUtil;
 import com.mongodb.BasicDBObject;
 import com.mongodb.client.FindIterable;
 import com.mongodb.client.result.DeleteResult;
+import com.mongodb.client.result.UpdateResult;
 
 public class MongoUtil {
 	
@@ -99,5 +100,26 @@ public class MongoUtil {
 			dbObject.put(key, map.get(key));
 		}
 		return dbObject;
+	}
+	
+	public static <T> boolean upsert(String collName, Map<String, Object> whereMap, T t) {
+	    String json = JSONUtil.toJson(t);
+        Map<String, Object> valueMap = JSONUtil.fromJson(json, HashMap.class);
+	    return upsert(collName, whereMap, valueMap);
+	}
+	
+	public static boolean upsert(String collName, Map<String, Object> whereMap, Map<String, Object> valueMap) {
+	    BasicDBObject whereObject = new BasicDBObject(whereMap);
+	    BasicDBObject valueObject = new BasicDBObject(valueMap);
+	    boolean result = false;
+        try {
+            @SuppressWarnings("unchecked")
+            UpdateResult updateResult = MongoInit.getColl(collName).replaceOne(whereObject, valueObject);
+            System.out.println(JSONUtil.toJson(updateResult));
+            result = updateResult.getModifiedCount() > 0;
+        } catch (Exception e) {
+            logger.error("update data error, msg:" + e.getMessage(), e);
+        }
+        return result;
 	}
 }
