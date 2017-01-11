@@ -6,11 +6,11 @@
            data-am-footer="{  }">
     <div class="am-footer-miscs ">
 
-          <p>由 <a href="http://www.yunshipei.com/" title="诺亚方舟"
-                                                target="_blank" class="">诺亚方舟</a>
+          <p>由 <a href="http://www.tasksmaster.com/" title="河牛商"
+                                                target="_blank" class="">河牛商</a>
             提供技术支持</p>
-        <p>CopyRight©2014  AllMobilize Inc.</p>
-        <p>京ICP备13033158</p>
+        <!-- <p>CopyRight©2014  AllMobilize Inc.</p>
+        <p>京ICP备13033158</p> -->
     </div>
   </footer>
 <!--[if lt IE 9]>
