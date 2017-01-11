@@ -7,7 +7,10 @@ import java.util.Map;
 
 import org.apache.log4j.Logger;
 import org.bson.Document;
+
+import com.henushang.job_manager.dao.db.MongoQuery.CompareClass;
 import com.henushang.job_manager.dao.db.MongoQuery.SortClass;
+import com.henushang.job_manager.dao.db.MongoQuery.CompareClass.ECompareType;
 import com.henushang.job_manager.domain.MongoConstant;
 import com.henushang.job_manager.util.JSONUtil;
 import com.mongodb.BasicDBObject;
@@ -93,8 +96,20 @@ public class MongoUtil {
 	
 	private static BasicDBObject convertMap2BasicDBObject(Map<String, Object> map) {
 		BasicDBObject dbObject = new BasicDBObject();
-		for (String key : map.keySet()) {
+		for (String key : map.keySet()) { 
 		    if (MongoConstant.SORT.equals(key)) {
+                continue;
+            }
+		    if (MongoConstant.COMPARE.equals(key)) {
+                CompareClass compareClass = (CompareClass) map.get(key);
+                Map<ECompareType, Object> comparator = compareClass.getComparator();
+                Document compareDoc = new Document();
+                Document comparatorDoc = new Document();
+                for (ECompareType compareType : comparator.keySet()) {
+                    comparatorDoc.append(compareType.getValue(), comparator.get(compareType));
+                }
+                compareDoc.append(compareClass.getField(), comparatorDoc);
+                dbObject.putAll(compareDoc);
                 continue;
             }
 			dbObject.put(key, map.get(key));
@@ -115,11 +130,21 @@ public class MongoUtil {
         try {
             @SuppressWarnings("unchecked")
             UpdateResult updateResult = MongoInit.getColl(collName).replaceOne(whereObject, valueObject);
-            System.out.println(JSONUtil.toJson(updateResult));
             result = updateResult.getModifiedCount() > 0;
         } catch (Exception e) {
             logger.error("update data error, msg:" + e.getMessage(), e);
         }
         return result;
+	}
+	
+	public static long count(String collName, Map<String, Object> whereMap) {
+	    BasicDBObject whereObject = convertMap2BasicDBObject(whereMap);
+	    long count = -1;
+	    try {
+            count = MongoInit.getColl(collName).count(whereObject);
+        } catch (Exception e) {
+            logger.error("count data error!", e);
+        }
+	    return count;
 	}
 }

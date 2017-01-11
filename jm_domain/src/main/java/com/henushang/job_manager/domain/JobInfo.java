@@ -1,10 +1,8 @@
 package com.henushang.job_manager.domain;
 
-import com.henushang.job_manager.domain.base.BaseDomain;
-
 import java.util.Date;
 
-import org.springframework.format.annotation.DateTimeFormat;
+import com.henushang.job_manager.domain.base.BaseDomain;
 
 /**
  * Created by baby on 2016/12/24.

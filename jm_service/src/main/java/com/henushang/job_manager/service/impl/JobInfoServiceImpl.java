@@ -8,9 +8,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.henushang.job_manager.dao.JobInfoDao;
+import com.henushang.job_manager.dao.db.MongoQuery.CompareClass;
+import com.henushang.job_manager.dao.db.MongoQuery.CompareClass.ECompareType;
 import com.henushang.job_manager.dao.db.MongoQuery.SortClass;
 import com.henushang.job_manager.domain.JobInfo;
 import com.henushang.job_manager.domain.MongoConstant;
+import com.henushang.job_manager.enums.ESchedule;
 import com.henushang.job_manager.service.JobInfoService;
 
 @Service("jobInfoService")
@@ -42,5 +45,24 @@ public class JobInfoServiceImpl implements JobInfoService {
 
     public boolean update(JobInfo t) {
         return dao.update(t);
+    }
+
+    public List<JobInfo> getList(String userId, int schedule) {
+        Map<String, Object> queryMap = new HashMap<String, Object>();
+        queryMap.put("userId", userId);
+        queryMap.put("schedule", schedule);
+        return dao.getListByQueryMap(queryMap);
+    }
+
+    public List<JobInfo> getUnfinishList(String userId) {
+        Map<String, Object> queryMap = new HashMap<String, Object>();
+        queryMap.put("userId", userId);
+        CompareClass compareClass = new CompareClass();
+        compareClass.setField("schedule");
+        Map<ECompareType, Object> comparator = new HashMap<ECompareType, Object>();
+        comparator.put(ECompareType.LT, ESchedule.RATIO100.getValue());
+        compareClass.setComparator(comparator);
+        queryMap.put(MongoConstant.COMPARE, compareClass);
+        return dao.getListByQueryMap(queryMap);
     }
 }

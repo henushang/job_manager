@@ -5,10 +5,8 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
-import org.bson.conversions.Bson;
-
+import com.henushang.job_manager.dao.db.MongoQuery.CompareClass.ECompareType;
 import com.mongodb.BasicDBObject;
-import com.mongodb.DBObject;
 
 public class MongoQuery {
 
@@ -32,5 +30,47 @@ public class MongoQuery {
             }
             return dbObject;
         }
+    }
+    
+    public static class CompareClass {
+        private String field;
+        private Map<ECompareType, Object> comparator;
+        
+        public String getField() {
+            return field;
+        }
+
+        public void setField(String field) {
+            this.field = field;
+        }
+
+        public Map<ECompareType, Object> getComparator() {
+            return comparator;
+        }
+
+        public void setComparator(Map<ECompareType, Object> comparator) {
+            this.comparator = comparator;
+        }
+
+        public static enum ECompareType {
+            LT("$lt"),
+            LTE("$lte"),
+            EQ("$eq"),
+            GT("$gt"),
+            GTE("$gte");
+            
+            public String getValue() {
+                return this.value;
+            }
+            
+            private String value;
+            private ECompareType(String value) {
+                this.value = value;
+            }
+        }
+    }
+    
+    public static void main(String[] args) {
+        System.out.println(ECompareType.EQ.getValue());
     }
 }

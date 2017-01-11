@@ -22,6 +22,10 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo.Id;
 import com.henushang.job_manager.controller.BaseController;
 import com.henushang.job_manager.converter.DateEditor;
 import com.henushang.job_manager.domain.JobInfo;
+import com.henushang.job_manager.domain.ResponseCode;
+import com.henushang.job_manager.domain.ResponseVO;
+import com.henushang.job_manager.enums.EResponseStatus;
+import com.henushang.job_manager.enums.ESchedule;
 import com.henushang.job_manager.service.JobInfoService;
 
 @Controller
@@ -37,6 +41,22 @@ public class JobInfoController extends BaseController {
         binder.registerCustomEditor(Date.class, new DateEditor());
     }
 
+    @ResponseBody
+    @RequestMapping(value = {"index_statics"}, method = RequestMethod.GET)
+    public ResponseVO indexStatics(HttpServletRequest request) {
+        List<JobInfo> finishJobs = service.getList(getCurUserId(request), ESchedule.RATIO100.getValue());
+        int finishCount = finishJobs.size();
+        List<JobInfo> unfinishJobs = service.getUnfinishList(getCurUserId(request));
+        int unfinishCount = unfinishJobs.size();
+        Map<String, Object> resData = new HashMap<String, Object>();
+        resData.put("finishCount", finishCount);
+        resData.put("unfinishCount", unfinishCount);
+        ResponseVO responseVO = new ResponseVO();
+        responseVO.setData(resData);
+        responseVO.setStatus(EResponseStatus.SUCCESS.getValue());
+        return responseVO;
+    }
+    
     @RequestMapping(value = { "/*", "/index" }, method = RequestMethod.GET)
     public String index() {
         return PREFIX_JOB_INFO + "index";

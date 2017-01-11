@@ -39,10 +39,10 @@
 			</div>
 			<ul
 				class="am-avg-sm-1 am-avg-md-4 am-margin am-padding am-text-center admin-content-list ">
+				<li><a href="#" class="am-text-danger"><span
+						class="am-icon-btn am-icon-file-text"></span><br />未完成<br /><span class="unfinish_count">敬请期待</span></a></li>
 				<li><a href="#" class="am-text-success"><span
-						class="am-icon-btn am-icon-file-text"></span><br />未完成<br />敬请期待</a></li>
-				<li><a href="#" class="am-text-warning"><span
-						class="am-icon-btn am-icon-briefcase"></span><br />已完成<br />敬请期待</a></li>
+						class="am-icon-btn am-icon-briefcase"></span><br />已完成<br /><span class="finish_count">敬请期待</span></a></li>
 				<!-- <li><a href="#" class="am-text-danger"><span
 						class="am-icon-btn am-icon-recycle"></span><br />昨日访问<br />80082</a></li>
 				<li><a href="#" class="am-text-secondary"><span
@@ -53,5 +53,16 @@
 
 	</div>
 	<jsp:include page="template/footer.jsp" />
+	<script>
+	$(function() {
+	    $.get("${domain_name}/job_info/index_statics", function(result) {
+            if (1 == result.status) {
+                $(".unfinish_count").html(result.data.unfinishCount);
+                $(".finish_count").html(result.data.finishCount);
+            }
+	    });
+    })
+	
+	</script>
 </body>
 </html>
