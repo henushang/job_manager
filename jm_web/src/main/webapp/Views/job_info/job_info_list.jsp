@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>  
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %> 
@@ -5,32 +6,27 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@page isELIgnored="false"%>
-<!DOCTYPE html>
 <html>
 <head>
-<meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>工作列表--工作管理</title>
-<meta name="description" content="这是一个 index 页面">
-<meta name="keywords" content="index">
-<meta name="viewport"
-	content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-<meta name="renderer" content="webkit">
-<meta http-equiv="Cache-Control" content="no-siteapp" />
-
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<title>工作列表--工作管理</title>
+	<meta name="description" content="这是一个 index 页面">
+	<meta name="keywords" content="index">
+	<meta name="viewport"
+		content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+	<meta name="renderer" content="webkit">
+	<meta http-equiv="Cache-Control" content="no-siteapp" />
 </head>
 <body>
-	<jsp:include page="template/header.jsp" />
-
+    <jsp:include page="template/header.jsp" />
 	<div class="am-cf admin-main">
-		<!-- sidebar start -->
 		<jsp:include page="template/sidebar.jsp" />
-		<!-- sidebar end -->
 
 		<!-- content start -->
 		<div class="admin-content">
-
+            <div class="admin-content-body">
 			<div class="am-cf am-padding">
 				<div class="am-fl am-cf">
 					<strong class="am-text-primary am-text-lg"> 任务列表</strong>
@@ -83,6 +79,8 @@
 		        </table>
 		      </div>
 		    </div>
+		    </div>
+		    <jsp:include page="template/footer.jsp" />
 		</div>
 		<!-- content end -->
 
@@ -213,6 +211,5 @@
 
 	}
 	</script>
-	<jsp:include page="template/footer.jsp" />
 </body>
 </html>

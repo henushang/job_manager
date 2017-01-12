@@ -2,7 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@page isELIgnored="false"%>
 <!-- sidebar start -->
-  <div class="admin-sidebar am-offcanvas" id="admin-offcanvas" style="height:100%">
+  <div class="admin-sidebar am-offcanvas" id="admin-offcanvas">
     <div class="am-offcanvas-bar admin-offcanvas-bar">
       <ul class="am-list admin-sidebar-list">
         <li><a href="${domain_name}/job_info/index"><span class="am-icon-home"></span> 首页</a></li>
