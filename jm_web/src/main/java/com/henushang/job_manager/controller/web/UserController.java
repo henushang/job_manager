@@ -14,6 +14,7 @@ import com.henushang.job_manager.controller.BaseController;
 import com.henushang.job_manager.domain.ResponseVO;
 import com.henushang.job_manager.domain.User;
 import com.henushang.job_manager.service.UserService;
+import com.henushang.job_manager.util.PwdUtil;
 
 @Controller
 @RequestMapping("user")
@@ -31,10 +32,11 @@ public class UserController extends BaseController {
     @RequestMapping(value="/login_post", method = RequestMethod.POST)
     @ResponseBody
     public ResponseVO login(String email, String password, HttpServletRequest request) {
-        if (!checkLoginParams(email, password)) {
+        String enPwd = PwdUtil.getPwd(password);
+        if (!checkLoginParams(email, enPwd)) {
             return errorVO("邮箱或密码错误");
         }
-        User user = userService.getUser(email, password);
+        User user = userService.getUser(email, enPwd);
         if (user == null) {
             return errorVO("邮箱或密码不正确");
         }
@@ -75,18 +77,16 @@ public class UserController extends BaseController {
             return errorVO("该邮箱已注册，请重新输入邮箱");
         } else if (!checkPwdSame(user.getPassword(), repassword)) {
             return errorVO("两次输入的密码不一致，请重新输入密码");
-        } else {
-            boolean addResult = userService.add(user);
-            if (addResult) {
-                return successVO();
-            } else {
-                return errorVO("系统异常，请重新提交或刷新后重新输入注册信息");
-            }    
         }
-    }
-    
-    private String pwdSoltMd5(String pwd) {
-        return "";
+
+        user.setPassword(PwdUtil.getPwd(user.getPassword()));
+        boolean addResult = userService.add(user);
+        if (addResult) {
+            return successVO();
+        } else {
+            return errorVO("系统异常，请重新提交或刷新后重新输入注册信息");
+        }    
+        
     }
     
     private boolean checkPwdSame(String pwd, String repwd) {
