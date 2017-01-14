@@ -104,13 +104,21 @@
 
 				<div class="am-margin">
 					<button type="button" class="am-btn am-btn-primary am-btn-xs btn_submit">提交保存</button>
-					<button type="button" class="am-btn am-btn-primary am-btn-xs">放弃保存</button>
+					<!-- <button type="button" class="am-btn am-btn-primary am-btn-xs">放弃保存</button> -->
 				</div>
 				</form>
 			</div>
 		</div>
 	<jsp:include page="template/footer.jsp" />
+	
 	<script type="text/javascript">
+	$(function(){
+		$(".add_result_confirm_btn").click(function(){
+	        var re = $(this).data("result");
+	        if (re == true) {
+	        	window.location = "${domain_name}/job_info/job_info_list/${cur_id}";
+	        }
+	    });
 	   $(".btn_submit").click(function(){
 		   var jobName = $("input[name='jobName']").val();
 		   var startTime = $("input[name='startTime']").val();
@@ -127,13 +135,31 @@
 			   "priority": priority,
 			   "remarks": remarks }, function(result) {
 				   if(result.success == true) {
-					   alert("添加成功");
+					   $(".result_content").html("添加成功");
+					   $(".add_result_confirm_btn").data("result", true);
 				   } else {
-					   alert("添加失败");
+					   $(".result_content").html("添加失败");
+					   $(".add_result_confirm_btn").data("result", false);
 				   }
+				   $(".alert_btn").click();
 		   });
 	   });
-
+	})
 	</script>
+	<!-- del result alert -->
+        <button style="display:none;" type="button" class="am-btn am-btn-primary alert_btn" data-am-modal="{target: '#add-alert'}">
+        </button>
+        <div class="am-modal am-modal-alert" tabindex="-1" id="add-alert">
+          <div class="am-modal-dialog">
+            <div class="am-modal-hd">Tasks Master</div>
+            <div class="am-modal-bd result_content">
+              Hello world！
+            </div>
+            <div class="am-modal-footer">
+              <span class="am-modal-btn add_result_confirm_btn" data-result="false">确定</span>
+            </div>
+          </div>
+        </div>
+	
 </body>
 </html>
