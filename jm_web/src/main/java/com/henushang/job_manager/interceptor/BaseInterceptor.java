@@ -6,8 +6,8 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.henushang.job_manager.common.Constants;
 import com.henushang.job_manager.common.WebConf;
+import com.henushang.job_manager.domain.Constants;
 import com.henushang.job_manager.domain.User;
 
 public class BaseInterceptor implements HandlerInterceptor {

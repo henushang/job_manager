@@ -11,6 +11,7 @@ import com.henushang.job_manager.dao.JobInfoDao;
 import com.henushang.job_manager.dao.db.MongoQuery.CompareClass;
 import com.henushang.job_manager.dao.db.MongoQuery.CompareClass.ECompareType;
 import com.henushang.job_manager.dao.db.MongoQuery.SortClass;
+import com.henushang.job_manager.domain.Constants;
 import com.henushang.job_manager.domain.JobInfo;
 import com.henushang.job_manager.domain.MongoConstant;
 import com.henushang.job_manager.enums.ESchedule;
@@ -65,4 +66,29 @@ public class JobInfoServiceImpl implements JobInfoService {
         queryMap.put(MongoConstant.COMPARE, compareClass);
         return dao.getListByQueryMap(queryMap);
     }
+
+    public List<JobInfo> getFilterByQuery(Map<String, Object> query) {
+        Map<String, Object> queryMap = new HashMap<String, Object>();
+        for (String key : query.keySet()) {
+            if (Constants.ISFINISH.equals(key)) {
+                queryMap = addRatioQuery(queryMap, query.get(key).toString());
+            }
+            queryMap.put(key, query.get(key));
+        }
+        return dao.getListByQueryMap(queryMap);
+    }
+    
+    private Map<String, Object> addRatioQuery(Map<String, Object> queryMap, String isFinish) {
+        if ("0".equals(isFinish)) { // 未完成
+            CompareClass compareClass = new CompareClass();
+            Map<ECompareType, Object> comparator = new HashMap<ECompareType, Object>();
+            comparator.put(ECompareType.LT, ESchedule.RATIO100.getValue());
+            compareClass.setComparator(comparator);
+            queryMap.put(MongoConstant.COMPARE, compareClass);
+        } else if ("1".equals(isFinish)) {
+            queryMap.put("schedule", ESchedule.RATIO100.getValue());
+        }
+        return queryMap;
+    }
 }
+;

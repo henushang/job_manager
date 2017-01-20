@@ -3,7 +3,7 @@ package com.henushang.job_manager.controller;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import com.henushang.job_manager.common.Constants;
+import com.henushang.job_manager.domain.Constants;
 import com.henushang.job_manager.domain.ResponseCode;
 import com.henushang.job_manager.domain.ResponseVO;
 import com.henushang.job_manager.domain.User;

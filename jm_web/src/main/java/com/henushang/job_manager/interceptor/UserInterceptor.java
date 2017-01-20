@@ -3,8 +3,8 @@ package com.henushang.job_manager.interceptor;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.henushang.job_manager.common.Constants;
 import com.henushang.job_manager.common.WebConf;
+import com.henushang.job_manager.domain.Constants;
 import com.henushang.job_manager.domain.User;
 
 public class UserInterceptor extends BaseInterceptor {

@@ -18,11 +18,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.fasterxml.jackson.annotation.JsonTypeInfo.Id;
 import com.henushang.job_manager.controller.BaseController;
 import com.henushang.job_manager.converter.DateEditor;
 import com.henushang.job_manager.domain.JobInfo;
-import com.henushang.job_manager.domain.ResponseCode;
 import com.henushang.job_manager.domain.ResponseVO;
 import com.henushang.job_manager.enums.EResponseStatus;
 import com.henushang.job_manager.enums.ESchedule;
