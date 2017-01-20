@@ -67,11 +67,12 @@ public class JobInfoServiceImpl implements JobInfoService {
         return dao.getListByQueryMap(queryMap);
     }
 
-    public List<JobInfo> getFilterByQuery(Map<String, Object> query) {
+    public List<JobInfo> getListByQuery(Map<String, Object> query) {
         Map<String, Object> queryMap = new HashMap<String, Object>();
         for (String key : query.keySet()) {
             if (Constants.ISFINISH.equals(key)) {
                 queryMap = addRatioQuery(queryMap, query.get(key).toString());
+                continue;
             }
             queryMap.put(key, query.get(key));
         }
@@ -84,6 +85,7 @@ public class JobInfoServiceImpl implements JobInfoService {
             Map<ECompareType, Object> comparator = new HashMap<ECompareType, Object>();
             comparator.put(ECompareType.LT, ESchedule.RATIO100.getValue());
             compareClass.setComparator(comparator);
+            compareClass.setField("schedule");
             queryMap.put(MongoConstant.COMPARE, compareClass);
         } else if ("1".equals(isFinish)) {
             queryMap.put("schedule", ESchedule.RATIO100.getValue());

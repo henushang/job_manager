@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.henushang.job_manager.controller.BaseController;
 import com.henushang.job_manager.converter.DateEditor;
+import com.henushang.job_manager.domain.Constants;
 import com.henushang.job_manager.domain.JobInfo;
 import com.henushang.job_manager.domain.ResponseVO;
 import com.henushang.job_manager.enums.EResponseStatus;
@@ -61,8 +62,12 @@ public class JobInfoController extends BaseController {
     }
 
     @RequestMapping(value = "job_info_list/{user_id}", method = RequestMethod.GET)
-    public String jobList(@PathVariable String user_id, Model model, HttpServletRequest request) {
-        List<JobInfo> list = service.getList(user_id);
+    public String jobList(@PathVariable String user_id, Model model, @RequestParam(defaultValue = "0") String isFinish, HttpServletRequest request) {
+        Map<String, Object> map = new HashMap<String, Object>();
+        map.put("userId", user_id);
+        map.put(Constants.ISFINISH, isFinish);
+//        List<JobInfo> list = service.getList(user_id);
+        List<JobInfo> list = service.getListByQuery(map);
         model.addAttribute("job_infos", list);
         return PREFIX_JOB_INFO + "job_info_list";
     }

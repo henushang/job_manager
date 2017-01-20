@@ -14,5 +14,5 @@ public interface JobInfoService extends BaseService<JobInfo> {
     
     List<JobInfo> getUnfinishList(String userId);
     
-    List<JobInfo> getFilterByQuery(Map<String, Object> query);
+    List<JobInfo> getListByQuery(Map<String, Object> query);
 }

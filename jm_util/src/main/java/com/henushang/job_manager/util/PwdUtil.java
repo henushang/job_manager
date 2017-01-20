@@ -12,6 +12,6 @@ public class PwdUtil {
     }
     
     public static void main(String[] args) {
-        System.out.println(getPwd("123456"));
+        System.out.println(getPwd("8994527txw"));
     }
 }
