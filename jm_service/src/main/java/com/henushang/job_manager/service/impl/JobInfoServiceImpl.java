@@ -90,6 +90,9 @@ public class JobInfoServiceImpl implements JobInfoService {
         } else if ("1".equals(isFinish)) {
             queryMap.put("schedule", ESchedule.RATIO100.getValue());
         }
+        SortClass sortClass = new SortClass();
+        sortClass.addSortKey("priority", SortClass.DESC);
+        queryMap.put(MongoConstant.SORT, sortClass);
         return queryMap;
     }
 }

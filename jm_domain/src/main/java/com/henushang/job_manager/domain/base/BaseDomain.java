@@ -5,6 +5,7 @@ import java.util.Date;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.format.annotation.DateTimeFormat;
 
+import com.henushang.job_manager.enums.EStatus;
 import com.henushang.job_manager.util.UUIDUtil;
 
 /**
@@ -14,6 +15,7 @@ public abstract class BaseDomain {
     private String _id;
     private Date createTime;
     private Date updateTime;
+    private int status;
     
     public BaseDomain() {
         if (StringUtils.isEmpty(_id)) {
@@ -25,6 +27,7 @@ public abstract class BaseDomain {
         if (createTime == null) {
             createTime = new Date();
         }
+        status = EStatus.NORMAL.getValue();
     }
 
     public Date getUpdateTime() {
@@ -49,5 +52,13 @@ public abstract class BaseDomain {
 
     public void setCreateTime(Date createTime) {
         this.createTime = createTime;
+    }
+
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
     }
 }

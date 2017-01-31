@@ -69,6 +69,7 @@
     <hr>
   </div>
 </div>
+<script src="${base_static }/js/common.js" ></script>
 <script type="text/javascript">
   $(function() {
 	  
@@ -78,8 +79,12 @@
 	  
        $(".btn_submit").click(function(){
            var email = $("#email").val();
+           var re = isEmail(email);
+           if(!re) {
+        	   alert("invalid email!");
+        	   return;
+           }
            var password = $("#password").val();
-           console.log(email + ":" + password);
            $.post("${domain_name}/user/login_post", {"email": email, "password": password}, function(result) {
                if (result.status == 1) {
                    window.location.href="${domain_name}/job_info/index";

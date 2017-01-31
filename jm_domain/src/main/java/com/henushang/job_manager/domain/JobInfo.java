@@ -17,6 +17,7 @@ public class JobInfo extends BaseDomain {
     private Date actualFinishTime;
     private String remarks;
     private int priority;
+    private int status;
 
     public String getJobName() {
         return jobName;
