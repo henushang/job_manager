@@ -11,6 +11,7 @@
 <link rel="apple-touch-icon-precomposed" href="${base_static}/amaze-ui/assets/i/app-icon72x72@2x.png">
 <link rel="stylesheet" href="${base_static}/amaze-ui/assets/css/amazeui.min.css" />
 <link rel="stylesheet" href="${base_static}/amaze-ui/assets/css/admin.css">
+<script src="${base_static}/js/common.js" ></script>
 	
 <header class="am-topbar admin-header">
 	<div class="am-topbar-brand">

@@ -47,7 +47,7 @@
 						<div class="am-u-sm-8 am-u-md-10">
 								<div class="am-form-group am-form-icon">
 									<i class="am-icon-calendar"></i>
-									<input type="date" name="startTime" class="am-form-field am-input-sm startTime" placeholder="开始日期">
+									<input type="date" name="startTime" id="start-time" class="am-form-field am-input-sm startTime" placeholder="开始日期">
 								</div>
 						</div>
 					</div>
@@ -57,7 +57,7 @@
 	                    <div class="am-u-sm-8 am-u-md-10">
 	                            <div class="am-form-group am-form-icon">
 	                                <i class="am-icon-calendar"></i>
-	                                <input type="date" name="finishTime" class="am-form-field am-input-sm finishTime" placeholder="预期完成日期">
+	                                <input type="date" name="finishTime" id="finish-time" class="am-form-field am-input-sm finishTime" placeholder="预期完成日期">
 	                            </div>
 	                    </div>
 	                </div>
@@ -113,6 +113,9 @@
 	
 	<script type="text/javascript">
 	$(function(){
+		document.getElementById('start-time').valueAsDate = new Date();
+		document.getElementById('finish-time').valueAsDate = getDate(7);
+
 		$(".add_result_confirm_btn").click(function(){
 	        var re = $(this).data("result");
 	        if (re == true) {
