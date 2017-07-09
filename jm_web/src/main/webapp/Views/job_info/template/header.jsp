@@ -6,6 +6,9 @@
   以获得更好的体验！</p>
 <![endif]-->
 <meta name="apple-mobile-web-app-title" content="Amaze UI" />
+<title>任务大师-Tasks Manager</title>
+<meta name="description" content="Tasks Master 是一款基于GTD思想的用于任务管理的工具。Getting Things Done! 它可以把手头的工作按照高中低优先级进行排列，并且可以记录进度，这样可以一目了然的对要做的事情做更好地安排。">
+<meta name="keywords" content="Tasks Master,GTD，任务大师，任务管理，工作列表，协同工具，工作管理">
 <jsp:include page="../../templ/base.jsp" />
 <link rel="icon" type="image/png" href="${base_static}/amaze-ui/assets/i/favicon.png">
 <link rel="apple-touch-icon-precomposed" href="${base_static}/amaze-ui/assets/i/app-icon72x72@2x.png">
